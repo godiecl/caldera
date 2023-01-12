@@ -120,7 +120,8 @@ with time_it('main'):
             y = point.xy[1][0]
             row, col = ndviRaster.index(x, y)
             value = ndviRaster.read(1)[row, col]
-            log.info("Point %d (%.6f%%) (%.4f, %.4f) has raster value (%.2f, %.2f) of: %d" % (
-                idx, idx / count, x, y, row, col, value))
+            if idx % 100 == 0:
+                log.info("Point %d (%.6f%%) (%.4f, %.4f) has raster value (%.2f, %.2f) of: %d" % (
+                    idx, idx / count, x, y, row, col, value))
 
     log.info("Done.")
