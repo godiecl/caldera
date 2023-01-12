@@ -111,11 +111,16 @@ with time_it('main'):
         # show(ndviRaster)
 
     with time_it('points'):
-        for point in gdf['geometry']:
+        log.info("Counting points, please wait ..")
+        count = len(gdf.geometry)
+        log.info("%d points founded.", count)
+
+        for idx, point in enumerate(gdf['geometry']):
             x = point.xy[0][0]
             y = point.xy[1][0]
             row, col = ndviRaster.index(x, y)
             value = ndviRaster.read(1)[row, col]
-            log.info("Point (%.4f, %.4f) has raster value (%.2f, %.2f) of: %d" % (x, y, row, col, value))
+            log.info("Point %d (%.6f%%) (%.4f, %.4f) has raster value (%.2f, %.2f) of: %d" % (
+                idx, idx / count, x, y, row, col, value))
 
     log.info("Done.")
